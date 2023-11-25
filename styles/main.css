@@ -1,0 +1,577 @@
+:root {
+    --light-color: #adb5bd;
+    --lighter-color: #F8F9FA;
+    --lighter-color-75: #F8F9FABF;
+    --dark-color: #2b3035;
+    --darker-color: #212529;
+    --darkest-color: #15191D;
+    --darkest-color-25: #15191D40;
+    --accent-color: #FF6600;
+    --accent-color-75: #FF6600BF;
+    --accent-color-50: #FF660080;
+}
+
+.light-theme {
+    --light-color: #2b3035;
+    --lighter-color: #212529;
+    --lighter-color-75: #15191DBF;
+    --dark-color: #adb5bd;
+    --darker-color: #d4d5d6;
+    --darkest-color: #F8F9FA;
+    --darkest-color-25: #F8F9FA;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Barlow';
+}
+
+body::-webkit-scrollbar {
+    width: .75rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--darkest-color);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border: .25rem solid var(--darkest-color);
+    border-radius: 1rem;
+}
+
+body {
+    background-color: var(--darker-color);
+}
+
+.expenses-main {
+    display: inline-flex;
+    background-color: var(--dark-color);
+    width: 100%;
+    z-index: 2;
+}
+
+.expenses-main>aside {
+    background-color: var(--darkest-color);
+    border-radius: 0 1rem 1rem 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar {
+    border-radius: 0 1rem 1rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+.navbar * {
+    color: var(--lighter-color);
+}
+
+.navbar div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navbar-pages * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navbar-pages a {
+    text-align: center;
+    width: 100%;
+    padding: 0 .5rem 0 .5rem;
+    height: 5rem;
+    width: 4rem;
+    text-decoration: none;
+}
+
+.navbar-pages a.active {
+    background-color: var(--accent-color-50);
+}
+
+.navbar-pages a:visited {
+    color: var(--lighter-color);
+}
+
+.navbar-pages a:hover {
+    background-color: var(--accent-color-75);
+}
+
+.navbar-pages a:first-child.active {
+    border-radius: 0 1rem 0 0;
+}
+
+.navbar-pages a:first-child:hover {
+    border-radius: 0 1rem 0 0;
+}
+
+#Theme {
+    text-align: center;
+    width: 100%;
+    padding: 0 .25rem 0 .25rem;
+    height: 5rem;
+    text-decoration: none;
+}
+
+#Theme:hover {
+    background-color: var(--lighter-color);
+}
+
+.navbar img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.navbar-footer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.navbar-footer {
+    row-gap: 1rem;
+}
+
+.navbar-social {
+    row-gap: 1rem;
+}
+
+.navbar-social img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(63%) saturate(1535%) hue-rotate(222deg) brightness(120%) contrast(110%);
+    border-radius: 100%;
+}
+
+.light-theme .navbar-social img {
+    filter: invert(8%) sepia(4%) saturate(2277%) hue-rotate(169deg) brightness(99%) contrast(96%);
+}
+
+.navbar-social a:hover {
+    background-color: var(--accent-color);
+    border-radius: 100%;
+    box-shadow: 0px 0px .75rem .25rem var(--accent-color);
+}
+
+.navbar-galicia {
+    text-decoration: none;
+}
+
+.navbar-galicia:visited {
+    color: var(--lighter-color);
+}
+
+.navbar-galicia:hover {
+    color: var(--accent-color);
+}
+
+.expenses-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 1rem 0;
+    width: 100%;
+    background-color: var(--dark-color);
+}
+
+.expenses-cardholders {
+    background-color: var(--darker-color);
+    color: var(--lighter-text);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-radius: 0 0 1rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.cardholders-cardholder {
+    font-size: .65rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+#CardholdersButtons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    text-align: center;
+    gap: .25rem;
+    justify-content: center;
+}
+
+#CardholdersButtons,
+#CardholdersSearch {
+    margin: 1rem;
+}
+
+#CardholdersButtons .cardholders-cardholder {
+    color: var(--lighter-color);
+    border-radius: 1rem;
+}
+
+#CardholdersButtons .cardholders-cardholder label {
+    padding: .5rem;
+}
+
+#CardholdersButtons .cardholders-cardholder input {
+    display: none;
+    padding: .5rem;
+}
+
+#CardholdersButtons label:hover {
+    background-color: var(--accent-color);
+    cursor: pointer;
+}
+
+#CardholdersButtons .btn-check:checked+.cardholders-cardholder {
+    background-color: var(--accent-color-75);
+}
+
+#CardholdersSearch:hover {
+    box-shadow: 0px 0px 5px 2px var(--accent-color);
+    border-radius: 1rem;
+}
+
+#CardholdersSearch .search-input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    border: 0;
+}
+
+.searchbar input {
+    padding: .5rem;
+    border-radius: 1rem 0 0 1rem;
+    border: 0;
+}
+
+#SearchInput {
+    outline-style: none;
+}
+
+#SearchIcon {
+    height: 100%;
+    background-color: var(--accent-color);
+    padding: .5rem;
+    border-radius: 0 1rem 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expenses {
+    width: 100%;
+}
+
+.expenses-cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.expenses-header {
+    background-color: var(--lighter-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.expenses-cards-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    height: 50px;
+    max-height: 50px;
+}
+
+.card {
+    background-color: var(--lighter-color);
+    border-radius: .5rem;
+    box-shadow: 0 20px 40px -14px var(--darkest-color-25);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.card * {
+    color: var(--darkest-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.card-see-more {
+    position: relative;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 25px;
+    border-radius: 1rem;
+    background-color: var(--accent-color);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.card-see-more {
+    text-decoration: none;
+}
+
+.card-see-more:visited {
+    color: var(--darkest-color);
+}
+
+.card-see-more:hover {
+    box-shadow: 0px 0px .75rem .25rem var(--lighter-color);
+    cursor: pointer;
+    color: var(--lighter-color);
+}
+
+.card-text {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: .9rem;
+}
+
+.card-text p {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    font-weight: bold;
+    color: var(--lighter-color)
+}
+
+#Toast {
+    visibility: hidden;
+    text-align: center;
+    position: fixed;
+    z-index: 1;
+    bottom: 1.5vh;
+    padding: 1rem .75rem 1rem .75rem;
+}
+
+#Toast img {
+    height: 1rem;
+    width: 1rem;
+}
+
+#Toast.show {
+    visibility: visible;
+    background-color: var(--darker-color);
+    border-radius: 1rem;
+    /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.toast-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: .5rem;
+}
+
+@keyframes spin {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes fadein {
+
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 1.5vh;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 1.5vh;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+
+    from {
+        bottom: 1.5vh;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+
+    from {
+        bottom: 1.5vh;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@media (min-width: 375px) {
+
+    .cardholders-cardholder * {
+        font-size: .8rem;
+    }
+}
+
+@media (min-width: 600px) {
+
+    .cardholders-cardholder * {
+        font-size: .9rem;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .cardholders-cardholder * {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .expenses-cardholders {
+        justify-content: space-between;
+    }
+    .expenses-cards-item {
+        width: 75%;
+    }
+}
+
+@media (min-width: 1400px) {
+
+    .expenses-cards-item {
+        width: 65%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #CardholdersButtons label:hover {
+        background-color: var(--darker-color);
+    }
+
+    #Theme:hover {
+        background-color: var(--darkest-color);
+    }
+
+    #Toast {
+        bottom: 50vh;
+    }
+
+    @-webkit-keyframes fadein {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+}
