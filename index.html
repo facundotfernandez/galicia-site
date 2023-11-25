@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/main-icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow">
+  <link rel="stylesheet" href="styles/main.css">
+  <title>Inicio</title>
+</head>
+
+<body>
+  <header>
+  </header>
+  <main>
+    <div class="expenses-main">
+      <aside>
+        <nav class="navbar">
+          <div class="navbar-pages">
+            <a href="#top" class="active"><img src="./assets/main-icon.png" alt="Inicio">Inicio</a>
+            <span id="Theme"><img src="./assets/icon_theme.png" alt="Cambiar modo">Tema</span>
+          </div>
+          <div class="navbar-footer">
+            <div class="navbar-social">
+              <a href="https://www.twitter.com/" target="_blank"><img src="./assets/twitter-icon.svg" alt="Twitter"></a>
+              <a href="https://www.instagram.com/" target="_blank"><img src="./assets/instagram-icon.svg" alt="Instagram"></a>
+              <a href="https://www.facebook.com/" target="_blank"><img src="./assets/facebook-icon.svg" alt="Facebook"></a>
+              <a href="https://www.whatsapp.com/" target="_blank"><img src="./assets/whatsapp-icon.svg" alt="Whatsapp"></a>
+            </div>
+            <a class="navbar-galicia" href="https://galicia.ar/" target="_blank">GALICIA</a>
+          </div>
+        </nav>
+      </aside>
+      <div class="expenses-section">
+        <div class="expenses-cardholders">
+          <div id="CardholdersButtons"></div>
+          <form id="CardholdersSearch" class="searchbar">
+            <input id="SearchInput" placeholder="Buscar">
+            <span id="SearchIcon"><img src="./assets/search-icon.svg" alt="Search Icon"></span>
+          </form>
+        </div>
+        <div class="expenses">
+          <ul id="Expenses" class="expenses-cards"></ul>
+        </div>
+        <div class="toast-container">
+          <div id="Toast">
+            <div class="toast-header">
+              <img src="assets/main-icon.png" alt="Amazing Expenses Icon" id="ToastMainIcon">
+              <strong>Banco Galicia</strong>
+              <small>Justo ahora</small>
+            </div>
+            <div class="toast-body">Ajusta la busqueda para encontrar un gasto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="./scripts/expenses.js"></script>
+</body>
+
+</html>
