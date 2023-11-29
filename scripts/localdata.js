@@ -2,7 +2,7 @@ const data = {
   "expenses": [
     {
       "_id": 1,
-      "date": "2023-10-01",
+      "date": "2023-10-22",
       "card_number": "XXXX-4444",
       "cardholder": "Nahuel Astarita (Titular)",
       "currency": "ARS",
@@ -14,7 +14,7 @@ const data = {
     },
     {
       "_id": 2,
-      "date": "2023-10-03",
+      "date": "2023-10-23",
       "card_number": "XXXX-8888",
       "cardholder": "Melisa Colle",
       "currency": "ARS",
@@ -26,7 +26,7 @@ const data = {
     },
     {
       "_id": 3,
-      "date": "2023-10-06",
+      "date": "2023-10-26",
       "card_number": "XXXX-2222",
       "cardholder": "Micaela Spadaro",
       "currency": "ARS",
@@ -38,7 +38,7 @@ const data = {
     },
     {
       "_id": 4,
-      "date": "2023-10-09",
+      "date": "2023-10-26",
       "card_number": "XXXX-6666",
       "cardholder": "Chiara Papa",
       "currency": "ARS",
@@ -50,7 +50,7 @@ const data = {
     },
     {
       "_id": 5,
-      "date": "2023-10-14",
+      "date": "2023-10-27",
       "card_number": "XXXX-0000",
       "cardholder": "Facundo Fernandez",
       "currency": "ARS",
@@ -62,7 +62,7 @@ const data = {
     },
     {
       "_id": 6,
-      "date": "2023-10-14",
+      "date": "2023-10-29",
       "card_number": "XXXX-4444",
       "cardholder": "Nahuel Astarita (Titular)",
       "currency": "USD",
@@ -74,7 +74,7 @@ const data = {
     },
     {
       "_id": 7,
-      "date": "2023-10-15",
+      "date": "2023-11-01",
       "card_number": "XXXX-8888",
       "cardholder": "Melisa Colle",
       "currency": "ARS",
@@ -86,7 +86,7 @@ const data = {
     },
     {
       "_id": 8,
-      "date": "2023-10-18",
+      "date": "2023-11-02",
       "card_number": "XXXX-2222",
       "cardholder": "Micaela Spadaro",
       "currency": "USD",
@@ -98,19 +98,19 @@ const data = {
     },
     {
       "_id": 9,
-      "date": "2023-10-19",
+      "date": "2023-11-02",
       "card_number": "XXXX-6666",
       "cardholder": "Chiara Papa",
       "currency": "ARS",
       "cuit": "45678901234",
-      "business": "Libreria Cultural",
+      "business": "Cultural",
       "receipt": "24683",
       "dues": "CUOTA 02/04",
       "amount": 50.00
     },
     {
       "_id": 10,
-      "date": "2023-10-25",
+      "date": "2023-11-05",
       "card_number": "XXXX-0000",
       "cardholder": "Facundo Fernandez",
       "currency": "ARS",
@@ -122,7 +122,7 @@ const data = {
     },
     {
       "_id": 11,
-      "date": "2023-10-28",
+      "date": "2023-11-08",
       "card_number": "XXXX-4444",
       "cardholder": "Nahuel Astarita (Titular)",
       "currency": "USD",
@@ -134,7 +134,7 @@ const data = {
     },
     {
       "_id": 12,
-      "date": "2023-10-31",
+      "date": "2023-11-08",
       "card_number": "XXXX-8888",
       "cardholder": "Melisa Colle",
       "currency": "ARS",
@@ -146,7 +146,7 @@ const data = {
     },
     {
       "_id": 13,
-      "date": "2023-11-02",
+      "date": "2023-11-09",
       "card_number": "XXXX-2222",
       "cardholder": "Micaela Spadaro",
       "currency": "ARS",
@@ -158,7 +158,7 @@ const data = {
     },
     {
       "_id": 14,
-      "date": "2023-11-05",
+      "date": "2023-11-11",
       "card_number": "XXXX-6666",
       "cardholder": "Chiara Papa",
       "currency": "USD",
@@ -170,7 +170,7 @@ const data = {
     },
     {
       "_id": 15,
-      "date": "2023-11-8",
+      "date": "2023-11-11",
       "card_number": "XXXX-0000",
       "cardholder": "Facundo Fernandez",
       "currency": "ARS",
