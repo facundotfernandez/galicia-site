@@ -31,7 +31,7 @@ const data = {
       "cardholder": "Micaela Spadaro",
       "currency": "ARS",
       "cuit": "34567890123",
-      "business": "Fabrica de Pastas",
+      "business": "La Central",
       "receipt": "54321",
       "dues": "",
       "amount": 80.00
@@ -67,7 +67,7 @@ const data = {
       "cardholder": "Nahuel Astarita (Titular)",
       "currency": "USD",
       "cuit": "12345678901",
-      "business": "Gimnasio Fitness+",
+      "business": "Fitness+",
       "receipt": "24680",
       "dues": "",
       "amount": 75.00
@@ -115,7 +115,7 @@ const data = {
       "cardholder": "Facundo Fernandez",
       "currency": "ARS",
       "cuit": "56789012345",
-      "business": "Pizzeria Napoli",
+      "business": "Napoli",
       "receipt": "24684",
       "dues": "",
       "amount": 40.00
@@ -151,7 +151,7 @@ const data = {
       "cardholder": "Micaela Spadaro",
       "currency": "ARS",
       "cuit": "34567890123",
-      "business": "Cafeteria Aroma",
+      "business": "Aroma",
       "receipt": "24687",
       "dues": "",
       "amount": 20.00
@@ -163,7 +163,7 @@ const data = {
       "cardholder": "Chiara Papa",
       "currency": "USD",
       "cuit": "45678901234",
-      "business": "San Cristobal Seguros",
+      "business": "San Cristobal",
       "receipt": "24688",
       "dues": "",
       "amount": 120.00
@@ -187,7 +187,7 @@ const data = {
       "cardholder": "Nahuel Astarita (Titular)",
       "currency": "ARS",
       "cuit": "12345678901",
-      "business": "Supermercado Disco",
+      "business": "Disco",
       "receipt": "24690",
       "dues": "",
       "amount": 180.00
@@ -223,7 +223,7 @@ const data = {
       "cardholder": "Chiara Papa",
       "currency": "ARS",
       "cuit": "45678901234",
-      "business": "Libreria Cultural",
+      "business": "Cultural",
       "receipt": "24693",
       "dues": "CUOTA 03/04",
       "amount": 60.00
