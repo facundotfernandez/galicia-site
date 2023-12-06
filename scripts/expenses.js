@@ -1,37 +1,19 @@
 import { data as localdata } from "./localdata.js";
 
-async function init_ExpensesPage() {
+function init_ExpensesPage() {
 
     try {
 
-        const theme = localStorage.getItem('theme')
-
-        if (theme == "light") {
-            document.body.className = "light-theme"
-        }
-
-        let ExpensesGroup = []
-        let CardholdersGroup = []
         let CardholdersHTMLSection = ""
 
-        localdata.expenses.forEach(expense => {
+        localdata.cardholders.forEach((cardholder) => {
 
-            if (!CardholdersGroup.includes(expense.cardholder)) {
-
-                CardholdersGroup.push(expense.cardholder)
-
-                CardholdersHTMLSection += `
-                        <span class="cardholders-cardholder">
-                            <input type="checkbox" class="btn-check" id="btncheck-${expense._id}" value="${expense.cardholder}">
-                            <label class="btn cardholders-cardholder" for="btncheck-${expense._id}">${expense.cardholder}</label>
-                        </span>
-                    `;
-
-            };
-
-            ExpensesGroup.push(expense)
-
-
+            CardholdersHTMLSection += `
+                <span class="cardholders-cardholder">
+                    <input type="checkbox" class="btn-check" id="btncheck-${cardholder._id}" value="${cardholder.name}">
+                    <label class="btn cardholders-cardholder" for="btncheck-${cardholder._id}">${cardholder.name}</label>
+                </span>
+            `;
 
         });
 
@@ -39,7 +21,6 @@ async function init_ExpensesPage() {
 
         const CheckboxGroup = [...document.querySelectorAll("input[class = btn-check")]
         const SearchInput = document.getElementById("SearchInput")
-        const SwitchTheme = document.getElementById("Theme")
 
         CheckboxGroup.forEach(checkbox => {
 
@@ -48,9 +29,8 @@ async function init_ExpensesPage() {
         });
 
         SearchInput.addEventListener("keyup", update_ExpensesShown)
-        SwitchTheme.addEventListener("click", switch_Theme)
 
-        return ExpensesGroup
+        update_ExpensesShown()
 
     } catch (error) {
 
@@ -60,55 +40,101 @@ async function init_ExpensesPage() {
 
 };
 
+function displayPopup(row) {
+    // Get all cells in the clicked row
+    var cells = row.cells;
+
+    // Extract text content from each cell
+    var fecha = cells[0].innerText;
+    var tarjeta = cells[1].innerText;
+    var movimiento = cells[2].innerText;
+    var cuotas = cells[3].innerText;
+    var moneda = cells[4].innerText;
+    var importe = cells[5].innerText;
+
+    // Create a div for the popup
+    var popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.innerHTML = `
+      <strong>Fecha:</strong> ${fecha}<br>
+      <strong>Tarjeta:</strong> ${tarjeta}<br>
+      <strong>Movimiento:</strong> ${movimiento}<br>
+      <strong>Cuotas:</strong> ${cuotas}<br>
+      <strong>Moneda:</strong> ${moneda}<br>
+      <strong>Importe:</strong> ${importe}
+    `;
+
+    // Add the popup to the document body
+    document.getElementById("Expenses").innerHTML.appendChild(popup);
+
+    // Close the popup when clicking outside of it
+    document.body.addEventListener('click', function (e) {
+        if (!popup.contains(e.target)) {
+            document.body.removeChild(popup);
+        }
+    });
+}
+
 function update_ExpensesShown() {
 
+    let CardHoldersGroup = [];
     let ExpensesHTMLSection = "";
     let CheckboxGroupChecked = [...document.querySelectorAll("input[class = btn-check]:checked")].map(cardholder => cardholder.value);
     let SearchInputValue = document.getElementById("SearchInput").value.toLowerCase();
     let header = `
-    <li class="expenses-cards-item">
-        <div class="card">
-            <div class="card-text">
-                <p>Fecha</p>
-                <p>Titular</p>
-                <p>Comprobante</p>
-                <p>Referencia</p>
-                <p>Moneda</p>
-                <p>Cuotas</p>
-                <p>Importe</p>
-                <a href="" class="card-see-more">Descargar</a>
-            </div>
-        </div>
-    </li>
+        <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col" colspan="2">Movimiento</th>
+              <th scope="col">Cuotas</th>
+              <th scope="col"></th>
+              <th scope="col">Importe</th>
+            </tr>
+        </thead>
     `
     ExpensesHTMLSection += header;
+    let totalAmount = 0;
 
-    ExpensesAvailable.forEach(expense => {
+    localdata.cardholders.forEach(cardholder => {
 
-        if ((CheckboxGroupChecked.length == 0 || CheckboxGroupChecked.includes(expense.cardholder)) && (SearchInputValue.length == 0 || (expense.business.toLowerCase()).includes(SearchInputValue))) {
+        cardholder.expenses.forEach(expense => {
 
+            totalAmount += expense.amount;
+            if (((CheckboxGroupChecked.length == 0 || CheckboxGroupChecked.includes(cardholder.name))) && (SearchInputValue.length == 0 || (expense.business.toLowerCase()).includes(SearchInputValue))) {
+
+                ExpensesHTMLSection += `
+                    <tr class="row-clickable">
+                        <th data-label="Fecha">${expense.date}</th>
+                        <td data-label="Movimiento" colspan="2">${expense.business}</td>
+                        <td data-label="Cuotas">${expense.dues}</td>
+                        <td data-label="Moneda">${(expense.currency === "ARS") ? ("") : (expense.currency)}</td>
+                        <td data-label="Importe">$ ${expense.amount}</td>
+                    </tr>
+                `;
+
+                if (!(CardHoldersGroup.includes(cardholder.name))) {
+                    CardHoldersGroup.push(cardholder.name)
+                }
+
+            };
+        });
+
+        if (CardHoldersGroup.includes(cardholder.name)) {
+            
             ExpensesHTMLSection += `
-                <li class="expenses-cards-item">
-                    <div class="card">
-                        <div class="card-text">
-                            <p>${expense.date}</p>
-                            <p>${expense.card_number}</p>
-                            <p>${expense.receipt}</p>
-                            <p>${expense.business}</p>
-                            <p>${(expense.currency === "ARS") ? ("") : (expense.currency)}</p>
-                            <p>${expense.dues}</p>
-                            <p>$ ${expense.amount}</p>
-                            <a href="" class="card-see-more">Detalles</a>
-                        </div>
-                    </div>
-                </li>
+                <tr class="cardholder-info">
+                    <th data-label="Condicion">${(cardholder._id === 1) ? ("Titular") : ("Adicional")}</th>
+                    <th data-label="Fecha" colspan="2">${cardholder.name}</th>
+                    <th data-label="Tarjeta">${cardholder.card_number}</th>
+                    <th data-label="Importe" colspan="2">Total consumos: $ ${totalAmount}</th>
+                </tr>
             `;
-
-        };
+        }
+        totalAmount = 0;
 
     });
 
-    if (ExpensesHTMLSection == header) {
+    if (ExpensesHTMLSection === header) {
 
         const toast = document.getElementById("Toast");
         toast.className = "show";
@@ -118,16 +144,14 @@ function update_ExpensesShown() {
 
     document.getElementById("Expenses").innerHTML = ExpensesHTMLSection
 
+    const RowClickableGroup = [...document.querySelectorAll("tr.row-clickable")]
+
+    RowClickableGroup.forEach((row) => {
+        row.addEventListener("click", function () {
+            displayPopup(row);
+        });
+    });
+
 };
 
-function switch_Theme() {
-
-    const theme = localStorage.getItem('theme');
-    document.body.className === "" ? document.body.className = "light-theme" : document.body.className = ""
-    theme == null ? localStorage.setItem("theme", "light") : localStorage.removeItem('theme');
-
-};
-
-const ExpensesAvailable = await init_ExpensesPage()
-
-update_ExpensesShown()
+init_ExpensesPage()
