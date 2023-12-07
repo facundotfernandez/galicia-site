@@ -286,70 +286,75 @@ table tr {
     background-color: var(--lighter-color);
     border: 1px solid var(--light-color);
     padding: .35em;
-  }
+}
 
-  table thead tr{
+table thead tr {
     background-color: var(--light-color);
-  }
+}
 
-  table tr.cardholder-info{
+table tr.cardholder-info {
     background-color: var(--light-color);
-  }
-  
-  table th,
-  table td {
+}
+
+table th,
+table td {
     padding: .625em;
     text-align: center;
-  }
-  
-  table th {
+}
+
+table th {
     font-size: .9em;
     letter-spacing: .1em;
     text-transform: uppercase;
-  }
-  
-  @media screen and (max-width: 600px) {
+}
+
+@media screen and (max-width: 600px) {
     table {
-      border: 0;
+        border: 0;
     }
-  
+
     table caption {
-      font-size: 1.3em;
+        font-size: 1.3em;
     }
-    
+
     table thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
     }
-    
+
+    .cardholder-info {
+        display: flex;
+        flex-direction: column;
+    }
+
     table tr {
-      display: block;
-      margin-bottom: .625em;
+        display: block;
+        margin-bottom: .625em;
     }
-    
+
     table td {
-      display: block;
-      font-size: .8em;
-      text-align: right;
+        display: block;
+        font-size: .8em;
+        text-align: right;
     }
-    
+
     table td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
     }
-    
+
     table td:last-child {
-      border-bottom: 0;
+        border-bottom: 0;
     }
-  }
+}
 
 .expenses {
     width: 100%;
@@ -445,7 +450,8 @@ tr.row-details:hover {
     border: none;
 }
 
-#ResumeDownloader, #ResumeDownloader button{
+#ResumeDownloader,
+#ResumeDownloader button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -461,15 +467,18 @@ tr.row-details:hover {
     color: var(--lighter-color);
 }
 
-.card-see-more, .toast-button {
+.card-see-more,
+.toast-button {
     text-decoration: none;
 }
 
-.card-see-more:visited, .toast-button:visited {
+.card-see-more:visited,
+.toast-button:visited {
     color: var(--darkest-color);
 }
 
-.card-see-more:hover, .toast-button:hover {
+.card-see-more:hover,
+.toast-button:hover {
     box-shadow: 0px 0px .75rem .25rem var(--lighter-color);
     cursor: pointer;
     color: var(--lighter-color);
@@ -656,48 +665,48 @@ tr.row-details:hover {
     #ToastFilters {
         bottom: 50vh;
     }
+}
 
-    @-webkit-keyframes fadein {
+@-webkit-keyframes fadein {
 
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
+    from {
+        opacity: 0;
     }
 
-    @keyframes fadein {
+    to {
+        opacity: 1;
+    }
+}
 
-        from {
-            opacity: 0;
-        }
+@keyframes fadein {
 
-        to {
-            opacity: 1;
-        }
+    from {
+        opacity: 0;
     }
 
-    @-webkit-keyframes fadeout {
+    to {
+        opacity: 1;
+    }
+}
 
-        from {
-            opacity: 1;
-        }
+@-webkit-keyframes fadeout {
 
-        to {
-            opacity: 0;
-        }
+    from {
+        opacity: 1;
     }
 
-    @keyframes fadeout {
+    to {
+        opacity: 0;
+    }
+}
 
-        from {
-            opacity: 1;
-        }
+@keyframes fadeout {
 
-        to {
-            opacity: 0;
-        }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 }
