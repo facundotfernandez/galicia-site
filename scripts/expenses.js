@@ -43,7 +43,7 @@ function init_ExpensesPage() {
 function download_CardholderCSV(cardholder_id) {
 
     const datos = [
-        ["Nombre", "Tarjeta", "Fecha", "Hora", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
     ];
 
     let registro = [];
@@ -61,6 +61,7 @@ function download_CardholderCSV(cardholder_id) {
                 registro.push(cardholder.card_number)
                 registro.push(expense.date)
                 registro.push(expense.time)
+                registro.push(expense.receipt)
                 registro.push(expense.business)
                 registro.push(expense.cuit)
                 registro.push(expense.address)
@@ -93,7 +94,7 @@ function download_CardholderCSV(cardholder_id) {
 function download_CompleteCSV() {
 
     const datos = [
-        ["Nombre", "Tarjeta", "Fecha", "Hora", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
     ];
 
     let registro = [];
@@ -110,6 +111,7 @@ function download_CompleteCSV() {
                 registro.push(cardholder.card_number)
                 registro.push(expense.date)
                 registro.push(expense.time)
+                registro.push(expense.receipt)
                 registro.push(expense.business)
                 registro.push(expense.cuit)
                 registro.push(expense.address)
@@ -158,6 +160,7 @@ function displayPopup(cardholder_id, expense_id) {
                     <p><strong>Tarjeta: </strong>${cardholder.card_number}</p>
                     <p><strong>Fecha: </strong>${expense.date}</p>
                     <p><strong>Hora: </strong>${expense.time}</p>
+                    <p><strong>Comprobante: </strong>${expense.receipt}</p>
                     <p><strong>Establecimiento: </strong>${expense.business}</p>
                     <p><strong>Cuit: </strong>${expense.cuit}</p>
                     <p><strong>Direccion: </strong>${expense.address}</p>
