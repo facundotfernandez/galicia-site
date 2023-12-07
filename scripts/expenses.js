@@ -4,6 +4,12 @@ function init_ExpensesPage() {
 
     try {
 
+        const SwitchTheme = document.getElementById("Theme")
+
+        if (SwitchTheme == "light") {
+            document.body.className = "light-theme"
+        }
+
         let CardholdersHTMLSection = ""
 
         localdata.cardholders.forEach((cardholder) => {
@@ -29,6 +35,7 @@ function init_ExpensesPage() {
         });
 
         SearchInput.addEventListener("keyup", update_ExpensesShown)
+        SwitchTheme.addEventListener("click", switch_Theme)
 
         update_ExpensesShown()
 
@@ -38,6 +45,14 @@ function init_ExpensesPage() {
 
     };
 
+};
+
+function switch_Theme() {
+
+    const theme = localStorage.getItem('theme');
+    document.body.className == "" ? document.body.className = "light-theme" : document.body.className = ""
+    theme == null ? localStorage.setItem("theme", "light") : localStorage.removeItem('theme');
+    
 };
 
 function download_CardholderCSV(cardholder_id) {
