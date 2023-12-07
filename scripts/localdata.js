@@ -1,4 +1,5 @@
 const data = {
+  "dolar" : 379.5,
   "cardholders": [
     {
       "_id": 1,
@@ -27,7 +28,7 @@ const data = {
           "business": "Fitness+",
           "receipt": "24680",
           "dues": "",
-          "amount": 7005.00,
+          "amount": 100.00,
           "address": "Pasaje San Martín 234 - La Rioja",
           "phone": "011 3248 8471",
         },
