@@ -40,39 +40,141 @@ function init_ExpensesPage() {
 
 };
 
-function displayPopup(row) {
-    // Get all cells in the clicked row
-    var cells = row.cells;
+function download_CardholderCSV(cardholder_id) {
 
-    // Extract text content from each cell
-    var fecha = cells[0].innerText;
-    var tarjeta = cells[1].innerText;
-    var movimiento = cells[2].innerText;
-    var cuotas = cells[3].innerText;
-    var moneda = cells[4].innerText;
-    var importe = cells[5].innerText;
+    const datos = [
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+    ];
 
-    // Create a div for the popup
-    var popup = document.createElement('div');
-    popup.className = 'popup';
-    popup.innerHTML = `
-      <strong>Fecha:</strong> ${fecha}<br>
-      <strong>Tarjeta:</strong> ${tarjeta}<br>
-      <strong>Movimiento:</strong> ${movimiento}<br>
-      <strong>Cuotas:</strong> ${cuotas}<br>
-      <strong>Moneda:</strong> ${moneda}<br>
-      <strong>Importe:</strong> ${importe}
-    `;
+    let registro = [];
+    let name = "";
 
-    // Add the popup to the document body
-    document.getElementById("Expenses").innerHTML.appendChild(popup);
+    localdata.cardholders.forEach(cardholder => {
 
-    // Close the popup when clicking outside of it
-    document.body.addEventListener('click', function (e) {
-        if (!popup.contains(e.target)) {
-            document.body.removeChild(popup);
-        }
+        if (cardholder._id == cardholder_id) {
+
+            name = cardholder.name
+
+            cardholder.expenses.forEach(expense => {
+
+                registro.push(cardholder.name)
+                registro.push(cardholder.card_number)
+                registro.push(expense.date)
+                registro.push(expense.time)
+                registro.push(expense.business)
+                registro.push(expense.cuit)
+                registro.push(expense.address)
+                registro.push(expense.dues)
+                registro.push(expense.currency)
+                registro.push(expense.amount)
+                datos.push(registro)
+
+                registro = []
+            });
+        };
     });
+
+    // Crear el contenido CSV
+    const contenidoCSV = datos.map(fila => fila.join(",")).join("\n");
+
+    // Crear un objeto Blob con el contenido CSV
+    const blob = new Blob([contenidoCSV], { type: "text/csv" });
+
+    // Crear un enlace para descargar el archivo
+    const enlaceDescarga = document.createElement("a");
+    enlaceDescarga.href = window.URL.createObjectURL(blob);
+    enlaceDescarga.download = "resumen_" + name + ".csv";
+
+    document.body.appendChild(enlaceDescarga);
+    enlaceDescarga.click();
+    document.body.removeChild(enlaceDescarga);
+};
+
+function download_CompleteCSV() {
+
+    const datos = [
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+    ];
+
+    let registro = [];
+    let CheckboxGroupChecked = [...document.querySelectorAll("input[class = btn-check]:checked")].map(cardholder => cardholder.value);
+    let SearchInputValue = document.getElementById("SearchInput").value.toLowerCase();
+
+    localdata.cardholders.forEach(cardholder => {
+
+        cardholder.expenses.forEach(expense => {
+
+            if (((CheckboxGroupChecked.length == 0 || CheckboxGroupChecked.includes(cardholder.name))) && (SearchInputValue.length == 0 || (expense.business.toLowerCase()).includes(SearchInputValue))) {
+
+                registro.push(cardholder.name)
+                registro.push(cardholder.card_number)
+                registro.push(expense.date)
+                registro.push(expense.time)
+                registro.push(expense.business)
+                registro.push(expense.cuit)
+                registro.push(expense.address)
+                registro.push(expense.dues)
+                registro.push(expense.currency)
+                registro.push(expense.amount)
+                datos.push(registro)
+
+                registro = [];
+            };
+        });
+    });
+
+    // Crear el contenido CSV
+    const contenidoCSV = datos.map(fila => fila.join(",")).join("\n");
+
+    // Crear un objeto Blob con el contenido CSV
+    const blob = new Blob([contenidoCSV], { type: "text/csv" });
+
+    // Crear un enlace para descargar el archivo
+    const enlaceDescarga = document.createElement("a");
+    enlaceDescarga.href = window.URL.createObjectURL(blob);
+    enlaceDescarga.download = "resumen_completo.csv";
+
+    document.body.appendChild(enlaceDescarga);
+    enlaceDescarga.click();
+    document.body.removeChild(enlaceDescarga);
+};
+
+function displayPopup(cardholder_id, expense_id) {
+
+    localdata.cardholders.forEach(cardholder => {
+
+        if (cardholder._id == cardholder_id) {
+
+            cardholder.expenses.forEach(expense => {
+
+                if (expense._id == expense_id) {
+
+                    const toast = document.getElementById("ToastExpense");
+                    const toastDetails = document.getElementById("ExpenseDetails");
+                    toast.className = "show";
+                    
+                    toastDetails.innerHTML = `
+                    <p><strong>Nombre: </strong>${cardholder.name}</p>
+                    <p><strong>Tarjeta: </strong>${cardholder.card_number}</p>
+                    <p><strong>Fecha: </strong>${expense.date}</p>
+                    <p><strong>Hora: </strong>${expense.time}</p>
+                    <p><strong>Establecimiento: </strong>${expense.business}</p>
+                    <p><strong>Cuit: </strong>${expense.cuit}</p>
+                    <p><strong>Direccion: </strong>${expense.address}</p>
+                    <p><strong>Cuotas: </strong>${(expense.dues === "") ? ("N/A") : (expense.dues)}</p>
+                    <p><strong>Moneda: </strong>${expense.currency}</p>
+                    <p><strong>Importe: $ </strong>${expense.amount}</p>
+                    `
+                    
+                    const toastCloser = document.getElementById("ToastExpenseClose");
+                    toastCloser.addEventListener('click', function (e) {
+                        toast.className = "";
+                    });
+                };
+            });
+        };
+    });
+
 }
 
 function update_ExpensesShown() {
@@ -81,13 +183,14 @@ function update_ExpensesShown() {
     let ExpensesHTMLSection = "";
     let CheckboxGroupChecked = [...document.querySelectorAll("input[class = btn-check]:checked")].map(cardholder => cardholder.value);
     let SearchInputValue = document.getElementById("SearchInput").value.toLowerCase();
-    let header = `
+
+    var header = `
         <thead>
             <tr>
               <th scope="col">Fecha</th>
               <th scope="col" colspan="2">Movimiento</th>
               <th scope="col">Cuotas</th>
-              <th scope="col"></th>
+              <th scope="col" id="ResumeDownloader"><button>Descargar</button></th>
               <th scope="col">Importe</th>
             </tr>
         </thead>
@@ -103,7 +206,7 @@ function update_ExpensesShown() {
             if (((CheckboxGroupChecked.length == 0 || CheckboxGroupChecked.includes(cardholder.name))) && (SearchInputValue.length == 0 || (expense.business.toLowerCase()).includes(SearchInputValue))) {
 
                 ExpensesHTMLSection += `
-                    <tr class="row-clickable">
+                    <tr class="row-details" data-cardholder-id="${cardholder._id}" data-expense-id="${expense._id}">
                         <th data-label="Fecha">${expense.date}</th>
                         <td data-label="Movimiento" colspan="2">${expense.business}</td>
                         <td data-label="Cuotas">${expense.dues}</td>
@@ -119,12 +222,12 @@ function update_ExpensesShown() {
             };
         });
 
-        if (CardHoldersGroup.includes(cardholder.name)) {
-            
+        if ((CardHoldersGroup.length != 0) && (CardHoldersGroup.includes(cardholder.name))) {
+
             ExpensesHTMLSection += `
-                <tr class="cardholder-info">
+                <tr class="cardholder-info" data-cardholder-id="${cardholder._id}">
                     <th data-label="Condicion">${(cardholder._id === 1) ? ("Titular") : ("Adicional")}</th>
-                    <th data-label="Fecha" colspan="2">${cardholder.name}</th>
+                    <th data-label="Nombre" colspan="2">${cardholder.name}</th>
                     <th data-label="Tarjeta">${cardholder.card_number}</th>
                     <th data-label="Importe" colspan="2">Total consumos: $ ${totalAmount}</th>
                 </tr>
@@ -136,22 +239,29 @@ function update_ExpensesShown() {
 
     if (ExpensesHTMLSection === header) {
 
-        const toast = document.getElementById("Toast");
+        const toast = document.getElementById("ToastFilters");
         toast.className = "show";
         setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 3000);
 
     };
 
     document.getElementById("Expenses").innerHTML = ExpensesHTMLSection
+    document.getElementById("ResumeDownloader").addEventListener('click', download_CompleteCSV)
 
-    const RowClickableGroup = [...document.querySelectorAll("tr.row-clickable")]
-
-    RowClickableGroup.forEach((row) => {
-        row.addEventListener("click", function () {
-            displayPopup(row);
+    document.querySelectorAll('.cardholder-info').forEach(element => {
+        element.addEventListener('click', function () {
+            const cardholderId = this.getAttribute('data-cardholder-id');
+            download_CardholderCSV(cardholderId);
         });
     });
 
+    document.querySelectorAll('.row-details').forEach(element => {
+        element.addEventListener('click', function () {
+            const cardholder_Id = this.getAttribute('data-cardholder-id');
+            const expense_Id = this.getAttribute('data-expense-id');
+            displayPopup(cardholder_Id, expense_Id);
+        });
+    });
 };
 
 init_ExpensesPage()
