@@ -367,9 +367,6 @@ table th {
         border-bottom: 0;
     }
 
-    #ToastExpense.show {
-        bottom: 5vh !important;
-    }
 }
 
 .expenses {
@@ -513,6 +510,7 @@ tr.row-details:hover {
     width: 450px;
     max-width: 70vw;
     max-height: 80vh;
+    overflow-y: scroll;
 }
 
 .toast-header {
@@ -613,6 +611,10 @@ tr.row-details:hover {
 
     #ToastFilters {
         bottom: 50vh;
+    }
+
+    #ToastExpense.show {
+        bottom: 5vh;
     }
 }
 
