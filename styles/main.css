@@ -11,6 +11,16 @@
     --accent-color-50: #FF660080;
 }
 
+.light-theme {
+    --light-color: #2b3035;
+    --lighter-color: #212529;
+    --lighter-color-75: #15191D;
+    --dark-color: #adb5bd;
+    --darker-color: #d4d5d6;
+    --darkest-color: #F4F4F4;
+    --darkest-color-25: #F4F4F4;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -275,6 +285,7 @@ table {
     padding: 0;
     width: 100%;
     table-layout: fixed;
+    color: var(--lighter-color);
 }
 
 table caption {
@@ -283,17 +294,17 @@ table caption {
 }
 
 table tr {
-    background-color: var(--lighter-color);
-    border: 1px solid var(--light-color);
+    background-color: var(--darker-color);
+    border: 1px solid var(--dark-color);
     padding: .35em;
 }
 
 table thead tr {
-    background-color: var(--light-color);
+    background-color: var(--darkest-color);
 }
 
 table tr.cardholder-info {
-    background-color: var(--light-color);
+    background-color: var(--darkest-color);
 }
 
 table th,
@@ -361,18 +372,6 @@ table th {
     padding: 1rem;
 }
 
-.expenses-cards {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    padding: 1rem;
-    text-align: center;
-    gap: 1rem;
-    justify-content: center;
-    width: 100%;
-}
-
 .expenses-header {
     background-color: var(--lighter-color);
     display: flex;
@@ -387,46 +386,6 @@ tr.row-details:hover {
     border-color: var(--accent-color-75);
     font-weight: 600;
     cursor: pointer;
-}
-
-.expenses-cards-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 50px;
-    height: 50px;
-    max-height: 50px;
-}
-
-.card {
-    background-color: var(--lighter-color);
-    border-radius: .5rem;
-    box-shadow: 0 20px 40px -14px var(--darkest-color-25);
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.card * {
-    color: var(--darkest-color);
-    justify-content: center;
-    align-items: center;
-}
-
-.card-see-more {
-    position: relative;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 65px;
-    height: 25px;
-    border-radius: 1rem;
-    background-color: var(--accent-color);
-    font-size: .75rem;
-    font-weight: 700;
 }
 
 .toast-footer {
@@ -467,35 +426,18 @@ tr.row-details:hover {
     color: var(--lighter-color);
 }
 
-.card-see-more,
 .toast-button {
     text-decoration: none;
 }
 
-.card-see-more:visited,
 .toast-button:visited {
     color: var(--darkest-color);
 }
 
-.card-see-more:hover,
 .toast-button:hover {
     box-shadow: 0px 0px .75rem .25rem var(--lighter-color);
     cursor: pointer;
     color: var(--lighter-color);
-}
-
-.card-text {
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    font-size: .9rem;
-}
-
-.card-text p {
-    flex: 1;
-    line-height: 1.5;
 }
 
 .cardholder-info:hover {
@@ -559,11 +501,12 @@ tr.row-details:hover {
 
 #ToastExpense.show {
     visibility: visible;
-    background-color: var(--darker-color);
+    background-color: var(--dark-color);
     border-radius: 1rem;
     position: fixed;
-    bottom: 30%;
+    bottom: 20vh;
     width: 450px;
+    max-width: 70vw;
 }
 
 .toast-header {
