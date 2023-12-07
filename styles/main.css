@@ -6,6 +6,7 @@
     --darker-color: #212529;
     --darkest-color: #15191D;
     --darkest-color-25: #15191D40;
+    --darkest-color-90: #15191DE6;
     --accent-color: #FF6600;
     --accent-color-75: #FF6600BF;
     --accent-color-50: #FF660080;
@@ -18,7 +19,8 @@
     --dark-color: #adb5bd;
     --darker-color: #d4d5d6;
     --darkest-color: #F4F4F4;
-    --darkest-color-25: #F4F4F4;
+    --darkest-color-25: #F4F4F440;
+    --darkest-color-90: #F4F4F4E6;
 }
 
 * {
@@ -507,7 +509,8 @@ tr.row-details:hover {
 
 #ToastExpense.show {
     visibility: visible;
-    background-color: var(--dark-color);
+    background-color: var(--darkest-color-90);
+    border-radius: 1rem;
     border-radius: 1rem 0 0 1rem;
     position: fixed;
     bottom: 20vh;
