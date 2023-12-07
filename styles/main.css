@@ -28,17 +28,21 @@
     font-family: 'Barlow';
 }
 
+::-webkit-scrollbar {
+    width: .37rem;
+}
+
 body::-webkit-scrollbar {
     width: .75rem;
 }
 
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track, ::-webkit-scrollbar-track {
     background: var(--darkest-color);
 }
 
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
     background-color: var(--accent-color);
-    border: .25rem solid var(--darkest-color);
+    border: .15rem solid var(--darkest-color);
     border-radius: 1rem;
 }
 
