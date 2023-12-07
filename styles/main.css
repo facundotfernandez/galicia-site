@@ -320,6 +320,7 @@ table th {
 }
 
 @media screen and (max-width: 600px) {
+
     table {
         border: 0;
     }
@@ -364,6 +365,10 @@ table th {
 
     table td:last-child {
         border-bottom: 0;
+    }
+
+    #ToastExpense.show {
+        bottom: 5vh !important;
     }
 }
 
@@ -507,6 +512,7 @@ tr.row-details:hover {
     bottom: 20vh;
     width: 450px;
     max-width: 70vw;
+    max-height: 80vh;
 }
 
 .toast-header {
