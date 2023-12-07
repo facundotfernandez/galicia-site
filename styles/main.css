@@ -269,18 +269,6 @@ body {
     align-items: center;
 }
 
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 999;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-
 table {
     border-collapse: collapse;
     margin: 0;
@@ -352,10 +340,6 @@ table tr {
     }
     
     table td::before {
-      /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
       content: attr(data-label);
       float: left;
       font-weight: bold;
@@ -391,6 +375,13 @@ table tr {
     align-items: center;
     width: 100%;
     height: 50px;
+}
+
+tr.row-details:hover {
+    background-color: var(--accent-color-75);
+    border-color: var(--accent-color-75);
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .expenses-cards-item {
@@ -433,15 +424,52 @@ table tr {
     font-weight: 700;
 }
 
-.card-see-more {
+.toast-footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: .5rem;
+}
+
+.toast-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 85px;
+    height: 35px;
+    border-radius: 1rem;
+    background-color: var(--accent-color);
+    font-size: .8rem;
+    font-weight: 700;
+    border: none;
+}
+
+#ResumeDownloader, #ResumeDownloader button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    background-color: var(--accent-color);
+    cursor: pointer;
+    font-weight: 700;
+    border: none;
+}
+
+#ResumeDownloader:hover * {
+    color: var(--lighter-color);
+}
+
+.card-see-more, .toast-button {
     text-decoration: none;
 }
 
-.card-see-more:visited {
+.card-see-more:visited, .toast-button:visited {
     color: var(--darkest-color);
 }
 
-.card-see-more:hover {
+.card-see-more:hover, .toast-button:hover {
     box-shadow: 0px 0px .75rem .25rem var(--lighter-color);
     cursor: pointer;
     color: var(--lighter-color);
@@ -461,6 +489,13 @@ table tr {
     line-height: 1.5;
 }
 
+.cardholder-info:hover {
+    background-color: var(--accent-color-75);
+    border-color: var(--accent-color-75);
+    color: var(--lighter-color);
+    cursor: pointer;
+}
+
 .toast-container {
     display: flex;
     flex-direction: column;
@@ -471,29 +506,55 @@ table tr {
     color: var(--lighter-color)
 }
 
-#Toast {
+.toast-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .65rem;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+#ToastFilters {
     visibility: hidden;
     text-align: center;
     position: fixed;
-    z-index: 1;
+    z-index: 9;
     bottom: 1.5vh;
     padding: 1rem .75rem 1rem .75rem;
 }
 
-#Toast img {
-    height: 1rem;
-    width: 1rem;
+#ToastExpense {
+    visibility: hidden;
+    text-align: center;
+    position: fixed;
+    z-index: 9;
+    bottom: 1.5vh;
+    padding: 1rem .75rem 1rem .75rem;
 }
 
-#Toast.show {
+.toast-container img {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 25%;
+}
+
+#ToastFilters.show {
     visibility: visible;
     background-color: var(--darker-color);
     border-radius: 1rem;
-    /* Show the snackbar */
-    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-    However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#ToastExpense.show {
+    visibility: visible;
+    background-color: var(--darker-color);
+    border-radius: 1rem;
+    position: fixed;
+    bottom: 30%;
+    width: 450px;
 }
 
 .toast-header {
@@ -502,17 +563,7 @@ table tr {
     justify-content: center;
     align-items: center;
     padding-bottom: .5rem;
-}
-
-@keyframes spin {
-
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    gap: 0.15rem;
 }
 
 @-webkit-keyframes fadein {
@@ -594,16 +645,6 @@ table tr {
     .expenses-cardholders {
         justify-content: space-between;
     }
-    .expenses-cards-item {
-        width: 75%;
-    }
-}
-
-@media (min-width: 1400px) {
-
-    .expenses-cards-item {
-        width: 65%;
-    }
 }
 
 @media (max-width: 768px) {
@@ -612,11 +653,7 @@ table tr {
         background-color: var(--darker-color);
     }
 
-    #Theme:hover {
-        background-color: var(--darkest-color);
-    }
-
-    #Toast {
+    #ToastFilters {
         bottom: 50vh;
     }
 
