@@ -508,7 +508,7 @@ tr.row-details:hover {
 #ToastExpense.show {
     visibility: visible;
     background-color: var(--dark-color);
-    border-radius: 1rem;
+    border-radius: 1rem 0 0 1rem;
     position: fixed;
     bottom: 20vh;
     width: 450px;
