@@ -52,13 +52,13 @@ function switch_Theme() {
     const theme = localStorage.getItem('theme');
     document.body.className == "" ? document.body.className = "light-theme" : document.body.className = ""
     theme == null ? localStorage.setItem("theme", "light") : localStorage.removeItem('theme');
-    
+
 };
 
 function download_CardholderCSV(cardholder_id) {
 
     const datos = [
-        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe", "ImpuestoPais", "ImpuestoGanancias", "ImpuestoBienesPersonales"]
     ];
 
     let registro = [];
@@ -83,6 +83,9 @@ function download_CardholderCSV(cardholder_id) {
                 registro.push(expense.dues)
                 registro.push(expense.currency)
                 registro.push(expense.amount)
+                registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .3).toFixed(2))
+                registro.push((expense.currency === "ARS") ? ("") : (expense.amount * localdata.dolar).toFixed(2))
+                registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .25).toFixed(2))
                 datos.push(registro)
 
                 registro = []
@@ -109,7 +112,7 @@ function download_CardholderCSV(cardholder_id) {
 function download_CompleteCSV() {
 
     const datos = [
-        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe"],
+        ["Nombre", "Tarjeta", "Fecha", "Hora", "Comprobante", "Movimiento", "Cuit", "Direccion", "Cuotas", "Moneda", "Importe", "ImpuestoPais", "ImpuestoGanancias", "ImpuestoBienesPersonales"],
     ];
 
     let registro = [];
@@ -133,6 +136,9 @@ function download_CompleteCSV() {
                 registro.push(expense.dues)
                 registro.push(expense.currency)
                 registro.push(expense.amount)
+                registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .3).toFixed(2))
+                registro.push((expense.currency === "ARS") ? ("") : (expense.amount * localdata.dolar).toFixed(2))
+                registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .25).toFixed(2))
                 datos.push(registro)
 
                 registro = [];
@@ -169,21 +175,35 @@ function displayPopup(cardholder_id, expense_id) {
                     const toast = document.getElementById("ToastExpense");
                     const toastDetails = document.getElementById("ExpenseDetails");
                     toast.className = "show";
-                    
+
                     toastDetails.innerHTML = `
-                    <p><strong>Nombre: </strong>${cardholder.name}</p>
-                    <p><strong>Tarjeta: </strong>${cardholder.card_number}</p>
-                    <p><strong>Fecha: </strong>${expense.date}</p>
-                    <p><strong>Hora: </strong>${expense.time}</p>
-                    <p><strong>Comprobante: </strong>${expense.receipt}</p>
-                    <p><strong>Establecimiento: </strong>${expense.business}</p>
-                    <p><strong>Cuit: </strong>${expense.cuit}</p>
-                    <p><strong>Direccion: </strong>${expense.address}</p>
-                    <p><strong>Cuotas: </strong>${(expense.dues === "") ? ("N/A") : (expense.dues)}</p>
-                    <p><strong>Moneda: </strong>${expense.currency}</p>
-                    <p><strong>Importe: $ </strong>${expense.amount}</p>
+                        <p><strong>Nombre: </strong>${cardholder.name}</p>
+                        <p><strong>Tarjeta: </strong>${cardholder.card_number}</p>
+                        <p><strong>Fecha: </strong>${expense.date}</p>
+                        <p><strong>Hora: </strong>${expense.time}</p>
+                        <p><strong>Comprobante: </strong>${expense.receipt}</p>
+                        <p><strong>Establecimiento: </strong>${expense.business}</p>
+                        <p><strong>Cuit: </strong>${expense.cuit}</p>
+                        <p><strong>Direccion: </strong>${expense.address}</p>
+                        <p><strong>Cuotas: </strong>${(expense.dues === "") ? ("N/A") : (expense.dues)}</p>
+                        <p><strong>Importe: ${(expense.currency === "ARS") ? ("$") : ("USD")} </strong>${expense.amount}</p>
                     `
-                    
+
+                    if (expense.currency === "USD") {
+
+                        var amountConverted = expense.amount * localdata.dolar;
+                        var taxCountry = (expense.amount * localdata.dolar) * .3;
+                        var taxProfits = expense.amount * localdata.dolar;
+                        var taxPersonalAssets = (expense.amount * localdata.dolar) * .25;
+
+                        toastDetails.innerHTML += `
+                            <p><strong>DB Impuesto Pais (30%): $ </strong>${taxCountry.toFixed(2)}</p>
+                            <p><strong>DB RG 4815 (100%): $ </strong>${taxProfits.toFixed(2)}</p>
+                            <p><strong>PER 5272/5430 (25%): $ </strong>${taxPersonalAssets.toFixed(2)}</p>
+                            <p><strong>Importe (Con impuestos): $ </strong>${(amountConverted+taxCountry+taxProfits+taxPersonalAssets).toFixed(2)}</p>
+                        `
+                    }
+
                     const toastCloser = document.getElementById("ToastExpenseClose");
                     toastCloser.addEventListener('click', function (e) {
                         toast.className = "";
