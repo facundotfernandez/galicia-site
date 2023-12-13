@@ -200,7 +200,7 @@ function displayPopup(cardholder_id, expense_id) {
                             <p><strong>DB Impuesto Pais (30%): $ </strong>${taxCountry.toFixed(2)}</p>
                             <p><strong>DB RG 4815 (100%): $ </strong>${taxProfits.toFixed(2)}</p>
                             <p><strong>PER 5272/5430 (25%): $ </strong>${taxPersonalAssets.toFixed(2)}</p>
-                            <p><strong>Importe (Con impuestos): $ </strong>${(amountConverted+taxCountry+taxProfits+taxPersonalAssets).toFixed(2)}</p>
+                            <p><strong>Importe (Con impuestos): $ </strong>${(amountConverted + taxCountry + taxProfits + taxPersonalAssets).toFixed(2)}</p>
                         `
                     }
 
@@ -229,18 +229,26 @@ function update_ExpensesShown() {
               <th scope="col" colspan="2">Movimiento</th>
               <th scope="col">Cuotas</th>
               <th scope="col" id="ResumeDownloader"><button>Descargar</button></th>
-              <th scope="col">Importe</th>
+              <th scope="col">Importe en pesos</th>
+              <th scope="col">Importe en dolares</th>
             </tr>
         </thead>
     `
     ExpensesHTMLSection += header;
-    let totalAmount = 0;
+    let totalAmountPesos = 0;
+    let totalAmountDollars = 0;
 
     localdata.cardholders.forEach(cardholder => {
 
         cardholder.expenses.forEach(expense => {
 
-            totalAmount += expense.amount;
+
+            if (expense.currency === "ARS") {
+                totalAmountPesos += expense.amount;
+            } else {
+                totalAmountDollars += expense.amount;
+            }
+
             if (((CheckboxGroupChecked.length == 0 || CheckboxGroupChecked.includes(cardholder.name))) && (SearchInputValue.length == 0 || (expense.business.toLowerCase()).includes(SearchInputValue))) {
 
                 ExpensesHTMLSection += `
@@ -249,7 +257,8 @@ function update_ExpensesShown() {
                         <td data-label="Movimiento" colspan="2">${expense.business}</td>
                         <td data-label="Cuotas">${expense.dues}</td>
                         <td data-label="Moneda">${(expense.currency === "ARS") ? ("") : (expense.currency)}</td>
-                        <td data-label="Importe">$ ${expense.amount}</td>
+                        <td data-label="Importe en pesos">${(expense.currency === "USD") ? ("") : ("$ " + expense.amount)}</td>
+                        <td data-label="Importe en dolares">${(expense.currency === "ARS") ? ("") : ("USD " + expense.amount)}</td>
                     </tr>
                 `;
 
@@ -267,11 +276,14 @@ function update_ExpensesShown() {
                     <th data-label="Condicion">${(cardholder._id === 1) ? ("Titular") : ("Adicional")}</th>
                     <th data-label="Nombre" colspan="2">${cardholder.name}</th>
                     <th data-label="Tarjeta">${cardholder.card_number}</th>
-                    <th data-label="Importe" colspan="2">Total consumos: $ ${totalAmount}</th>
+                    <th data-label="Saldo en pesos" colspan="2">Saldo en pesos: ${"$ " +totalAmountPesos}</th>
+                    <th data-label="Saldo en dolares">Saldo en dolares: ${"USD " + totalAmountDollars}</th>
                 </tr>
             `;
         }
-        totalAmount = 0;
+
+        totalAmountPesos = 0;
+        totalAmountDollars = 0;
 
     });
 
