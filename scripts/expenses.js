@@ -82,7 +82,7 @@ function download_CardholderCSV(cardholder_id) {
                 registro.push(expense.address)
                 registro.push(expense.dues)
                 registro.push(expense.currency)
-                registro.push(expense.amount)
+                registro.push((expense.amount).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .3).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : (expense.amount * localdata.dolar).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .25).toFixed(2))
@@ -135,7 +135,7 @@ function download_CompleteCSV() {
                 registro.push(expense.address)
                 registro.push(expense.dues)
                 registro.push(expense.currency)
-                registro.push(expense.amount)
+                registro.push((expense.amount).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .3).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : (expense.amount * localdata.dolar).toFixed(2))
                 registro.push((expense.currency === "ARS") ? ("") : ((expense.amount * localdata.dolar) * .25).toFixed(2))
@@ -186,7 +186,7 @@ function displayPopup(cardholder_id, expense_id) {
                         <p><strong>Cuit: </strong>${expense.cuit}</p>
                         <p><strong>Direccion: </strong>${expense.address}</p>
                         <p><strong>Cuotas: </strong>${(expense.dues === "") ? ("N/A") : (expense.dues)}</p>
-                        <p><strong>Importe: ${(expense.currency === "ARS") ? ("$") : ("USD")} </strong>${expense.amount}</p>
+                        <p><strong>Importe: ${(expense.currency === "ARS") ? ("$") : ("USD")} </strong>${(expense.amount).toFixed(2)}</p>
                     `
 
                     if (expense.currency === "USD") {
@@ -257,8 +257,8 @@ function update_ExpensesShown() {
                         <td data-label="Movimiento" colspan="2">${expense.business}</td>
                         <td data-label="Cuotas">${expense.dues}</td>
                         <td data-label="Moneda">${(expense.currency === "ARS") ? ("") : (expense.currency)}</td>
-                        <td data-label="Importe en pesos">${(expense.currency === "USD") ? ("") : ("$ " + expense.amount)}</td>
-                        <td data-label="Importe en dolares">${(expense.currency === "ARS") ? ("") : ("USD " + expense.amount)}</td>
+                        <td data-label="Importe en pesos">${(expense.currency === "USD") ? ("") : ("$ " + (expense.amount).toFixed(2))}</td>
+                        <td data-label="Importe en dolares">${(expense.currency === "ARS") ? ("") : ("USD " + (expense.amount).toFixed(2))}</td>
                     </tr>
                 `;
 
@@ -276,8 +276,8 @@ function update_ExpensesShown() {
                     <th data-label="Condicion">${(cardholder._id === 1) ? ("Titular") : ("Adicional")}</th>
                     <th data-label="Nombre" colspan="2">${cardholder.name}</th>
                     <th data-label="Tarjeta">${cardholder.card_number}</th>
-                    <th data-label="Saldo en pesos" colspan="2">Saldo en pesos: ${"$ " +totalAmountPesos}</th>
-                    <th data-label="Saldo en dolares">Saldo en dolares: ${"USD " + totalAmountDollars}</th>
+                    <th data-label="Saldo en pesos" colspan="2">Saldo en pesos: ${"$ " + totalAmountPesos.toFixed(2)}</th>
+                    <th data-label="Saldo en dolares">Saldo en dolares: ${"USD " + totalAmountDollars.toFixed(2)}</th>
                 </tr>
             `;
         }
